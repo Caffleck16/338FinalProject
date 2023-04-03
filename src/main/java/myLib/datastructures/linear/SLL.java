@@ -65,7 +65,7 @@ public class SLL<T extends Comparable<T>> {
     
     // Inserts node object in its proper position in a sorted list
     public void sortedInsert(Node<T> node) {
-        if (isSorted()){
+        if (!isSorted()){
             sort();
         }
         if (head == null || node.getData().compareTo(head.getData()) <= 0) {
@@ -236,6 +236,7 @@ public class SLL<T extends Comparable<T>> {
         while(curNode != null){
             System.out.println("Node " + i + ": " + curNode.getData());
             curNode = curNode.getNext();
+            i++;
         }
     }
 }
