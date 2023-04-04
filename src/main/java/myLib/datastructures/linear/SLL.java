@@ -3,7 +3,7 @@ import java.util.NoSuchElementException;
 
 import main.java.myLib.datastructures.nodes.*;
 
-/*
+/**
  * Singly linked list class. Works with generic types and uses Node objects as nodes.
  */
 public class SLL<T extends Comparable<T>> {
@@ -26,9 +26,9 @@ public class SLL<T extends Comparable<T>> {
         this.size = 1;
     }
     
-    /*
+    /**
      * insertHead(Node<T> node);
-     * @params node - node to be inserted at head of the list.
+     * @param node - node to be inserted at head of the list.
      */
     public void insertHead(Node<T> node) {
         if(search(node) != null){
@@ -44,9 +44,9 @@ public class SLL<T extends Comparable<T>> {
         size++;
     }
     
-    /*
+    /**
      * insertTail(Node<T> node);
-     * @params node - node to be inserted at tail of the list
+     * @param node - node to be inserted at tail of the list
      */
     public void insertTail(Node<T> node) {
         if(search(node) != null){
@@ -62,10 +62,10 @@ public class SLL<T extends Comparable<T>> {
         size++;
     }
     
-    /*
+    /**
      * insert(Node<T> node, int position);
-     * @params node - node to be inserted
-     * @params position - position node will be inserted at
+     * @param node - node to be inserted
+     * @param position - position node will be inserted at
      */
     public void insert(Node<T> node, int position) {
         if(search(node) != null){
@@ -85,9 +85,9 @@ public class SLL<T extends Comparable<T>> {
         }
     }
     
-    /*
+    /**
      * sortedInsert(Node<T> node);
-     * @params node - node to insert at its sorted position. If list isn't yet sorted, sort() will be called
+     * @param node - node to insert at its sorted position. If list isn't yet sorted, sort() will be called
      */
     public void sortedInsert(Node<T> node) {
         if(search(node) != null){
@@ -100,6 +100,10 @@ public class SLL<T extends Comparable<T>> {
             insertHead(node);
             return;
         }
+        if(node.getData().compareTo(tail.getData()) >= 0){
+            insertTail(node);
+            return;
+        }
         Node<T> curr = head;
         while (curr.getNext() != tail.getNext() && node.getData().compareTo(curr.getNext().getData()) > 0) {
             curr = curr.getNext();
@@ -109,10 +113,10 @@ public class SLL<T extends Comparable<T>> {
         size++;
     }
     
-    /*
+    /**
      * search(Node<T> node);
-     * @params node - node to search for
-     * @returns node if node is found, null otherwise
+     * @param node - node to search for
+     * @return node if node is found, null otherwise
      */
     public Node<T> search(Node<T> node) {
         Node<T> curr = head;
@@ -125,7 +129,7 @@ public class SLL<T extends Comparable<T>> {
         return null;
     }
     
-    /*
+    /**
      * deleteHead();
      * deletes the current head of the list.
      */
@@ -140,7 +144,7 @@ public class SLL<T extends Comparable<T>> {
         }
     }
     
-    /*
+    /**
      * deleteTail();
      * deletes the current tail of the list
      */
@@ -161,9 +165,9 @@ public class SLL<T extends Comparable<T>> {
         size--;
     }
 
-    /*
+    /**
      * delete(Node<T> node);
-     * @params node - node to be deleted
+     * @param node - node to be deleted
      */
     public void delete(Node<T> node){
         node = search(node);
@@ -186,12 +190,12 @@ public class SLL<T extends Comparable<T>> {
         size--;
     }
 
-    /*
+    /**
      * getNode(int position);
-     * @params position -  position to get node at
-     * @returns node at the position specified
+     * @param position -  position to get node at
+     * @return node at the position specified
      */
-    private Node<T> getNode(int position){
+    public Node<T> getNode(int position){
         if (position < 0 || position > size) {
             throw new IndexOutOfBoundsException();
         } else if (position == 0) {
@@ -207,9 +211,9 @@ public class SLL<T extends Comparable<T>> {
         }
     }
 
-    /*
+    /**
      * isSorted();
-     * @returns true if list is sorted, false otherwise.
+     * @return true if list is sorted, false otherwise.
      */
     public boolean isSorted() {
         if (head == null || head.getNext() == null) {
@@ -228,7 +232,7 @@ public class SLL<T extends Comparable<T>> {
         return true;
     }
 
-    /*
+    /**
      * sort();
      * Uses insertion sort to sort the linked list.
      */
@@ -263,7 +267,7 @@ public class SLL<T extends Comparable<T>> {
         tail = curNode;
     }
     
-    /*
+    /**
      * clear();
      * deletes entire list
      */
@@ -273,7 +277,7 @@ public class SLL<T extends Comparable<T>> {
         size = 0;
     }
 
-    /*
+    /**
      * print();
      * prints out contents of the list.
      */
@@ -289,5 +293,28 @@ public class SLL<T extends Comparable<T>> {
             System.out.println("Node " + i + ": " + curNode.getData());
             curNode = curNode.getNext();
         }
+    }
+
+    /**
+     * getHead();
+     * @return head
+     */
+    public Node<T> getHead(){
+        return this.head;
+    }
+
+    /**
+     * getTail();
+     * @return tail
+     */
+    public Node<T> getTail(){
+        return this.tail;
+    }
+
+    /**
+     * @return size of list
+     */
+    public int getSize(){
+        return this.size;
     }
 }

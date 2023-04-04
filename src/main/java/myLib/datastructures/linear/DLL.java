@@ -3,7 +3,7 @@ import java.util.NoSuchElementException;
 
 import main.java.myLib.datastructures.nodes.*;
 
-/*
+/**
  * Doubly linked list class. Works with generic types and uses DNode objects as nodes.
  */
 public class DLL<T extends Comparable<T>>{
@@ -24,9 +24,9 @@ public class DLL<T extends Comparable<T>>{
         this.size = 1;
     }
 
-    /*
+    /**
      * insertHead(DNode<T> node);
-     * @params node - node to be inserted as head
+     * @param node - node to be inserted as head
      */
     public void insertHead(DNode<T> node) {
         if(search(node) != null){
@@ -42,9 +42,9 @@ public class DLL<T extends Comparable<T>>{
         size++;
     }
 
-    /*
+    /**
      * insertTail(DNode<T> node);
-     * @params node - node to be inserted as tail
+     * @param node - node to be inserted as tail
      */
     public void insertTail(DNode<T> node) {
         if(search(node) != null){
@@ -60,10 +60,10 @@ public class DLL<T extends Comparable<T>>{
         size++;
     }
 
-    /*
+    /**
      * insert(DNode<T> node, int position);
-     * @params node - node to insert
-     * @params position - position node will be inserted
+     * @param node - node to insert
+     * @param position - position node will be inserted
      */
     public void insert(DNode<T> node, int position) {
         if(search(node) != null){
@@ -89,11 +89,11 @@ public class DLL<T extends Comparable<T>>{
         }
     }
 
-    /*
+    /**
      * sortedInsert(DNode<T> newNode)
      * This function will sort the linked list if it's not already sorted
      * and subsequently insert the node at its sorted location.
-     * @params newNode - node to be inserted
+     * @param newNode - node to be inserted
      */
     public void sortedInsert(DNode<T> newNode) {
         if(search(newNode) != null){
@@ -120,6 +120,10 @@ public class DLL<T extends Comparable<T>>{
             insertTail(newNode);
             return;
         }
+
+        if(newNode.getData().compareTo(tail.getData()) >= 0){
+            insertTail(newNode);
+        }
     
         // Search for the correct position to insert the new node
         DNode<T> currNode = head.getNext();
@@ -137,10 +141,10 @@ public class DLL<T extends Comparable<T>>{
         size++;
     }
 
-    /*
+    /**
      * search(DNode<T> node);
-     * @params node - node to search for
-     * @returns node if found, null otherwise
+     * @param node - node to search for
+     * @return node if found, null otherwise
      */
     public DNode<T> search(DNode<T> node){
         DNode<T> curr = head;
@@ -153,7 +157,7 @@ public class DLL<T extends Comparable<T>>{
         return null;
     }
 
-    /*
+    /**
      * deleteHead();
      * deletes the current head of the list
      */
@@ -169,7 +173,7 @@ public class DLL<T extends Comparable<T>>{
         }
     }
 
-    /*
+    /**
      * deleteTail();
      * deletes the current tail of
      * the list.
@@ -187,9 +191,9 @@ public class DLL<T extends Comparable<T>>{
         size--;
     }
 
-    /*
+    /**
      * delete(DNode<T> node);
-     * @params node - node to be deleted
+     * @param node - node to be deleted
      */
     public void delete(DNode<T> node){
         node = search(node);
@@ -211,9 +215,9 @@ public class DLL<T extends Comparable<T>>{
         size--;
     }
 
-    /*
+    /**
      * isSorted();
-     * @returns true if sorted, false otherwise
+     * @return true if sorted, false otherwise
      */
     public boolean isSorted() {
         if (head == null || head.getNext() == null) {
@@ -232,7 +236,7 @@ public class DLL<T extends Comparable<T>>{
         return true;
     }
 
-    /*
+    /**
      * sort();
      * Sorts the list using insertion sort.
      */
@@ -278,7 +282,28 @@ public class DLL<T extends Comparable<T>>{
         tail = curNode;
     }
 
-    /*
+    /**
+     * getNode(int position);
+     * @param position -  position to get node at
+     * @return node at the position specified
+     */
+    public DNode<T> getNode(int position){
+        if (position < 0 || position > size) {
+            throw new IndexOutOfBoundsException();
+        } else if (position == 0) {
+            return head;
+        } else if (position == size) {
+            return tail;
+        } else {
+            var curNode = head;
+            for(int i=0 ; i < position; i++){
+                curNode = curNode.getNext();
+            }
+            return curNode;
+        }
+    }
+
+    /**
      * clear();
      * deletes entire list
      */
@@ -288,7 +313,7 @@ public class DLL<T extends Comparable<T>>{
         size = 0;
     }
 
-    /*
+    /**
      * print();
      * prints each item in the list, as well as the length and sorted status of the list.
      */
@@ -304,5 +329,28 @@ public class DLL<T extends Comparable<T>>{
             System.out.println("Node " + i + ": " + curNode.getData());
             curNode = curNode.getNext();
         }
+    }
+
+    /**
+     * getHead();
+     * @return head
+     */
+    public DNode<T> getHead(){
+        return this.head;
+    }
+
+    /**
+     * getTail();
+     * @return tail
+     */
+    public DNode<T> getTail(){
+        return this.tail;
+    }
+
+    /**
+     * @return size of list
+     */
+    public int getSize(){
+        return this.size;
     }
 }

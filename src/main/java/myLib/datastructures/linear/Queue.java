@@ -12,17 +12,17 @@ public class Queue<T extends Comparable<T>> extends SLL<T>{
         super(head);
     }
 
-    /*
+    /**
      * enqueue(Node<T> node);
-     * @params node - node to be queued
+     * @param node - node to be queued
      */
     public void enqueue(Node<T> node){
         super.insertTail(node);
     }
 
-    /*
+    /**
      * dequeue();
-     * @returns previous head
+     * @return previous head
      */
     public Node<T> dequeue(){
         Node<T> node = head;
@@ -30,17 +30,17 @@ public class Queue<T extends Comparable<T>> extends SLL<T>{
         return node;
     }
 
-    /*
+    /**
      * peek();
-     * @returns head without dequeueing
+     * @return head without dequeueing
      */
     public Node<T> peek(){
         return this.head;
     }
 
-    /*
+    /**
      * empty();
-     * @returns true if queue is empty
+     * @return true if queue is empty
      */
     public boolean empty(){   
         return size==0;
@@ -60,7 +60,7 @@ public class Queue<T extends Comparable<T>> extends SLL<T>{
 
     public void sort(){}
 
-    /*
+    /**
      * print();
      * prints out queue's length and contents.
      */

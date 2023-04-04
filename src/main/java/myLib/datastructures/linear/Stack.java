@@ -11,17 +11,17 @@ public class Stack<T extends Comparable<T>> extends SLL<T>{
         super(head);
     }
 
-    /*
+    /**
      * push(Node<T> node);
-     * @params node - node to be pushed to stack
+     * @param node - node to be pushed to stack
      */
     public void push(Node<T> node){
         super.insertHead(node);
     }
 
-    /*
+    /**
      * pop();
-     * @returns node at the head of the stack and deletes it from stack
+     * @return node at the head of the stack and deletes it from stack
      */
     public Node<T> pop(){
         Node<T> node = this.head;
@@ -29,16 +29,16 @@ public class Stack<T extends Comparable<T>> extends SLL<T>{
         return node;
     }
 
-    /*
+    /**
      * peek();
-     * @returns head of stack without popping
+     * @return head of stack without popping
      */
     public Node<T> peek(){
         return this.head;
     }
 
-    /*
-     * @returns whether stack is empty or not.
+    /**
+     * @return whether stack is empty or not.
      */
     public boolean empty(){
         return size==0;
@@ -57,7 +57,7 @@ public class Stack<T extends Comparable<T>> extends SLL<T>{
 
     public void sort(){}
 
-    /*
+    /**
      * print();
      * prints out stack length and contents.
      */
