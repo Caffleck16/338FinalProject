@@ -2,6 +2,8 @@ package main.java.myLib.datastructures.linear;
 import main.java.myLib.datastructures.nodes.*;
 
 public class Queue<T extends Comparable<T>> extends SLL<T>{
+    //Constructors
+
     public Queue(){
         super();
     }
@@ -10,20 +12,36 @@ public class Queue<T extends Comparable<T>> extends SLL<T>{
         super(head);
     }
 
+    /*
+     * enqueue(Node<T> node);
+     * @params node - node to be queued
+     */
     public void enqueue(Node<T> node){
         super.insertTail(node);
     }
 
+    /*
+     * dequeue();
+     * @returns previous head
+     */
     public Node<T> dequeue(){
         Node<T> node = head;
         super.deleteHead();
         return node;
     }
 
+    /*
+     * peek();
+     * @returns head without dequeueing
+     */
     public Node<T> peek(){
         return this.head;
     }
 
+    /*
+     * empty();
+     * @returns true if queue is empty
+     */
     public boolean empty(){   
         return size==0;
     }
@@ -42,6 +60,10 @@ public class Queue<T extends Comparable<T>> extends SLL<T>{
 
     public void sort(){}
 
+    /*
+     * print();
+     * prints out queue's length and contents.
+     */
     public void print(){
         System.out.println("Queue Length: " + size);
         System.out.println("Queue Contents:");
