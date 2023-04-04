@@ -69,6 +69,7 @@ public class BST<T extends Comparable<T>> {
             if (finder.getData().compareTo(node.getData()) > 0) {               // node < root
                 if (finder.getLeft() == null) {
                     finder.setLeft(node);
+                    finder.getLeft().setParent(finder);
                     break;
                 } else {
                     finder = finder.getLeft();
@@ -76,6 +77,7 @@ public class BST<T extends Comparable<T>> {
             } else if (finder.getData().compareTo(node.getData()) < 0) {        // node > root
                 if (finder.getRight() == null) {
                     finder.setRight(node);
+                    finder.getRight().setParent(finder);
                     break;
                 } else {
                     finder = finder.getRight();
@@ -139,8 +141,53 @@ public class BST<T extends Comparable<T>> {
         }
         
     }
-        TNode Search(int val) {
-            
+    /**
+     * Search() - searches through the given binary search tree to find the node with a value matching the given value
+     * @param val - value of node to delete
+     * @return - Null if node is not found, node if found.
+     */
+    public TNode<T> search(int val) {
+            TNode<T> node = new TNode(val, 0, null, null, null);
+            TNode<T> finder = this.root;
+            while(finder != null) {
+                if (finder.getData().compareTo(node.getData()) > 0 ) {      // node < finder
+                    finder = finder.getLeft();
+                } else if (finder.getData().compareTo(node.getData()) < 0 ) { // node > finder
+                    finder = finder.getRight();
+                } else if (finder.getData().compareTo(node.getData()) == 0) {
+                    return finder;
+                }
+            }
             return null;
         }
+    public void printInOrder() {
+        String txt = "";
+        TNode<T> temp = this.root;
+        TNode<T> prev;
+        if (temp == null) {
+            txt += "No Bst Exists";
+            return;
+        }
+        while (temp != null) {
+            if (temp.getLeft() == null) {
+                txt += temp.toString() + " ";
+                temp = temp.getRight();
+            } else {
+                prev = temp.getRight();
+                while (prev.getRight() != null && prev.getRight() != temp) {
+                    prev = prev.getRight();
+                }
+
+                if (prev.getRight() == null) {
+                    prev.setRight(temp); // this might cause lots of errors later.
+                    temp = temp.getLeft();
+                } else {
+                    prev.setRight(null);
+                    txt += temp.toString() + " ";
+                    temp = temp.getRight();
+                }
+            }
+        }
+        System.out.println(txt);
+    }
 }
