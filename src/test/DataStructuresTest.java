@@ -2,6 +2,8 @@ package test;
 import main.java.myLib.datastructures.linear.*;
 import main.java.myLib.datastructures.nodes.*;
 import java.util.*;
+import org.junit.*;
+import static org.junit.Assert.*;
 
 public class DataStructuresTest {
     private static ArrayList<Node<Integer>> nodeList = new ArrayList<>();

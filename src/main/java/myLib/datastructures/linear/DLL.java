@@ -3,12 +3,15 @@ import java.util.NoSuchElementException;
 
 import main.java.myLib.datastructures.nodes.*;
 
-
+/*
+ * Doubly linked list class. Works with generic types and uses DNode objects as nodes.
+ */
 public class DLL<T extends Comparable<T>>{
     protected DNode<T> head;
     protected DNode<T> tail;
     protected int size;
     
+    //Constructors
     public DLL(){
         this.head = null;
         this.tail = null;
@@ -21,6 +24,10 @@ public class DLL<T extends Comparable<T>>{
         this.size = 1;
     }
 
+    /*
+     * insertHead(DNode<T> node);
+     * @params node - node to be inserted as head
+     */
     public void insertHead(DNode<T> node) {
         if(search(node) != null){
             return;
@@ -35,6 +42,10 @@ public class DLL<T extends Comparable<T>>{
         size++;
     }
 
+    /*
+     * insertTail(DNode<T> node);
+     * @params node - node to be inserted as tail
+     */
     public void insertTail(DNode<T> node) {
         if(search(node) != null){
             return;
@@ -49,6 +60,11 @@ public class DLL<T extends Comparable<T>>{
         size++;
     }
 
+    /*
+     * insert(DNode<T> node, int position);
+     * @params node - node to insert
+     * @params position - position node will be inserted
+     */
     public void insert(DNode<T> node, int position) {
         if(search(node) != null){
             return;
@@ -73,6 +89,12 @@ public class DLL<T extends Comparable<T>>{
         }
     }
 
+    /*
+     * sortedInsert(DNode<T> newNode)
+     * This function will sort the linked list if it's not already sorted
+     * and subsequently insert the node at its sorted location.
+     * @params newNode - node to be inserted
+     */
     public void sortedInsert(DNode<T> newNode) {
         if(search(newNode) != null){
             return;
@@ -115,6 +137,11 @@ public class DLL<T extends Comparable<T>>{
         size++;
     }
 
+    /*
+     * search(DNode<T> node);
+     * @params node - node to search for
+     * @returns node if found, null otherwise
+     */
     public DNode<T> search(DNode<T> node){
         DNode<T> curr = head;
         for(int i = 0; i < size; i++) {
@@ -126,6 +153,10 @@ public class DLL<T extends Comparable<T>>{
         return null;
     }
 
+    /*
+     * deleteHead();
+     * deletes the current head of the list
+     */
     public void deleteHead(){
         if(head == null){
             throw new NoSuchElementException();
@@ -138,6 +169,11 @@ public class DLL<T extends Comparable<T>>{
         }
     }
 
+    /*
+     * deleteTail();
+     * deletes the current tail of
+     * the list.
+     */
     public void deleteTail() {
         if (tail == null) {
             throw new NoSuchElementException();
@@ -151,6 +187,10 @@ public class DLL<T extends Comparable<T>>{
         size--;
     }
 
+    /*
+     * delete(DNode<T> node);
+     * @params node - node to be deleted
+     */
     public void delete(DNode<T> node){
         node = search(node);
         if(node == null){
@@ -171,6 +211,10 @@ public class DLL<T extends Comparable<T>>{
         size--;
     }
 
+    /*
+     * isSorted();
+     * @returns true if sorted, false otherwise
+     */
     public boolean isSorted() {
         if (head == null || head.getNext() == null) {
             // If the list is empty or has only one element, it is considered sorted
@@ -188,6 +232,10 @@ public class DLL<T extends Comparable<T>>{
         return true;
     }
 
+    /*
+     * sort();
+     * Sorts the list using insertion sort.
+     */
     public void sort(){
         if (head == null || head.getNext() == null) {
             return; // The list is already sorted
@@ -230,12 +278,20 @@ public class DLL<T extends Comparable<T>>{
         tail = curNode;
     }
 
+    /*
+     * clear();
+     * deletes entire list
+     */
     public void clear() {
         head = null;
         tail = null;
         size = 0;
     }
-    
+
+    /*
+     * print();
+     * prints each item in the list, as well as the length and sorted status of the list.
+     */
     public void print(){
         System.out.println("List Length: " + size);
         System.out.println("Sorted Status: " + isSorted());
