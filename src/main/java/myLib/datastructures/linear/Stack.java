@@ -25,31 +25,31 @@ public class Stack<T extends Comparable<T>> extends SLL<T>{
     }
 
     public boolean empty(){
-        if(size==0){
-            return true;
-        } else{
-            return false;
+        return size==0;
+    }
+
+    public void insertTail(Node<T> node){}
+
+    public void insert(Node<T> node, int position){}
+
+    public void sortedInsert(Node<T> node){}
+
+    public void deleteTail(){}
+
+    public void delete(Node<T> node){}
+
+    public void sort(){}
+
+    public void print(){
+        System.out.println("Stack Length: " + size);
+        System.out.println("Stack Contents:");
+        if(head == null){
+            System.out.println("Stack is empty");
+        }
+        var curNode = head;
+        for(int i = 0; i<size; i++){
+            System.out.println("Node " + i + ": " + curNode.getData());
+            curNode = curNode.getNext();
         }
     }
-
-    public void insertTail(Node<T> node){
-
-    }
-
-    public void insert(Node<T> node, int position){
-
-    }
-
-    public void sortedInsert(Node<T> node){
-
-    }
-
-    public void deleteTail(){
-
-    }
-
-    public void delete(Node<T> node){
-
-    }
-
 }
