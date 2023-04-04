@@ -17,15 +17,21 @@ public class DataStructuresTest {
         dNodeList.add(new DNode<>(30));
         dNodeList.add(new DNode<>(40));
         dNodeList.add(new DNode<>(20));
-        DLLTest();
+        CDLLTest();
     }
 
     public static void SLLTest(){
         SLL<Integer> sll = new SLL<>(nodeList.get(0));
         sll.insertHead(nodeList.get(1));
-        sll.insertHead(nodeList.get(2));
         sll.insertHead(nodeList.get(3));
+        sll.sortedInsert(nodeList.get(2));
         sll.sortedInsert(nodeList.get(4));
+        sll.print();
+        sll.delete(nodeList.get(2));
+        sll.print();
+        sll.deleteHead();
+        sll.print();
+        sll.deleteTail();
         sll.print();
     }
 
@@ -34,7 +40,43 @@ public class DataStructuresTest {
         dll.insertHead(dNodeList.get(1));
         dll.insertHead(dNodeList.get(2));
         dll.insertHead(dNodeList.get(3));
-        dll.insert(dNodeList.get(4), 0);
+        dll.sortedInsert(dNodeList.get(4));
         dll.print();
+        dll.delete(dNodeList.get(2));
+        dll.print();
+        dll.deleteHead();
+        dll.print();
+        dll.deleteTail();
+        dll.print();
+    }
+
+    public static void CSLLTest(){
+        CSLL<Integer> csll = new CSLL<>(nodeList.get(0));
+        csll.insertHead(nodeList.get(1));
+        csll.insertHead(nodeList.get(3));
+        csll.sortedInsert(nodeList.get(2));
+        csll.sortedInsert(nodeList.get(4));
+        csll.print();
+        csll.delete(nodeList.get(2));
+        csll.print();
+        csll.deleteHead();
+        csll.print();
+        csll.deleteTail();
+        csll.print();
+    }
+
+    public static void CDLLTest(){
+        CDLL<Integer> cdll = new CDLL<>(dNodeList.get(0));
+        cdll.insertHead(dNodeList.get(1));
+        cdll.insertHead(dNodeList.get(2));
+        cdll.insertHead(dNodeList.get(3));
+        cdll.sortedInsert(dNodeList.get(4));
+        cdll.print();
+        cdll.delete(dNodeList.get(2));
+        cdll.print();
+        cdll.deleteHead();
+        cdll.print();
+        cdll.deleteTail();
+        cdll.print();
     }
 }

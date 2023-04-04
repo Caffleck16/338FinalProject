@@ -1,11 +1,13 @@
 package main.java.myLib.datastructures.linear;
+import java.util.NoSuchElementException;
+
 import main.java.myLib.datastructures.nodes.*;
 
 
 public class DLL<T extends Comparable<T>>{
-    private DNode<T> head;
-    private DNode<T> tail;
-    private int size;
+    protected DNode<T> head;
+    protected DNode<T> tail;
+    protected int size;
     
     public DLL(){
         this.head = null;
@@ -87,7 +89,7 @@ public class DLL<T extends Comparable<T>>{
     
         // Search for the correct position to insert the new node
         DNode<T> currNode = head.getNext();
-        while (currNode != null && newNode.getData().compareTo(currNode.getData()) > 0) {
+        while (currNode != tail.getNext() && newNode.getData().compareTo(currNode.getData()) > 0) {
             currNode = currNode.getNext();
         }
     
@@ -101,13 +103,69 @@ public class DLL<T extends Comparable<T>>{
         size++;
     }
 
+    public DNode<T> search(DNode<T> node){
+        DNode<T> curr = head;
+        for(int i = 0; i < size; i++) {
+            if (curr.equals(node)) {
+                return curr;
+            }
+            curr = curr.getNext();
+        }
+        return null;
+    }
+
+    public void deleteHead(){
+        if(head == null){
+            throw new NoSuchElementException();
+        }
+        head = head.getNext();
+        head.setPrevious(null);
+        size--;
+        if (size == 0) {
+            tail = null;
+        }
+    }
+
+    public void deleteTail() {
+        if (tail == null) {
+            throw new NoSuchElementException();
+        }
+        if (head == tail) {
+            clear();
+            return;
+        }
+        tail = tail.getPrevious();
+        tail.setNext(null);
+        size--;
+    }
+
+    public void delete(DNode<T> node){
+        node = search(node);
+        if(node == null){
+            return;
+        }
+        if(node == head){
+            deleteHead();
+            return;
+        }
+        if(node == tail){
+            deleteTail();
+            return;
+        }
+        DNode<T> prevNode = node.getPrevious();
+        DNode<T> nextNode = node.getNext();
+        prevNode.setNext(nextNode);
+        nextNode.setPrevious(prevNode);
+        size--;
+    }
+
     public boolean isSorted() {
         if (head == null || head.getNext() == null) {
             // If the list is empty or has only one element, it is considered sorted
             return true;
         }
         DNode<T> current = head;
-        while (current.getNext() != null) {
+        while (current != tail) {
             if (current.getData().compareTo(current.getNext().getData()) > 0) {
                 // If the current node is greater than the next node, the list is not sorted
                 return false;
@@ -118,26 +176,46 @@ public class DLL<T extends Comparable<T>>{
         return true;
     }
 
-    private void sort(){
+    public void sort(){
         if (head == null || head.getNext() == null) {
             return; // The list is already sorted
         }
-    
-        DNode<T> current = head.getNext();
-        while (current != null) {
-            T data = current.getData();
-            DNode<T> prev = current.getPrevious();
-            while (prev != null && prev.getData().compareTo(data) > 0) {
-                prev.getNext().setData(prev.getData());
-                prev = prev.getPrevious();
+
+        DNode<T> sortedList = null;
+        DNode<T> curNode = head;
+
+        for(int i = 0; i < size; i++){
+            DNode<T> next = curNode.getNext();
+
+            if(sortedList == null || curNode.getData().compareTo(sortedList.getData()) < 0){
+                curNode.setNext(sortedList);
+                if(sortedList != null){
+                    sortedList.setPrevious(curNode);
+                }
+                sortedList = curNode;
+            } else{
+                DNode<T> prevNode = sortedList;
+                while(prevNode.getNext() != null && prevNode.getNext().getData().compareTo(curNode.getData()) < 0){
+                    prevNode = prevNode.getNext();
+                }
+                curNode.setNext(prevNode.getNext());
+                curNode.setPrevious(prevNode);
+                prevNode.setNext(curNode);
+                if(curNode.getNext()!=null){
+                    curNode.getNext().setPrevious(curNode);
+                }
             }
-            if (prev == null) {
-                head.setData(data);
-            } else {
-                prev.getNext().setData(data);
-            }
-            current = current.getNext();
+            curNode = next;
         }
+        if(sortedList != null){
+            sortedList.setPrevious(null);
+        }
+        head = sortedList;
+        curNode = head;
+        while(curNode.getNext() != null){
+            curNode = curNode.getNext();
+        }
+        tail = curNode;
     }
 
     public void clear() {
@@ -146,7 +224,7 @@ public class DLL<T extends Comparable<T>>{
         size = 0;
     }
     
-    public void print() {
+    public void print(){
         System.out.println("List Length: " + size);
         System.out.println("Sorted Status: " + isSorted());
         System.out.println("List Contents:");
@@ -154,11 +232,9 @@ public class DLL<T extends Comparable<T>>{
             System.out.println("List is empty");
         }
         var curNode = head;
-        int i = 0;
-        while(curNode != null){
+        for(int i = 0; i<size; i++){
             System.out.println("Node " + i + ": " + curNode.getData());
             curNode = curNode.getNext();
-            i++;
         }
     }
 }
