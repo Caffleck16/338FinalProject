@@ -22,6 +22,9 @@ public class DLL<T extends Comparable<T>>{
     }
 
     public void insertHead(DNode<T> node) {
+        if(search(node) != null){
+            return;
+        }
         if (size==0) {
             tail = node;
         } else {
@@ -33,6 +36,9 @@ public class DLL<T extends Comparable<T>>{
     }
 
     public void insertTail(DNode<T> node) {
+        if(search(node) != null){
+            return;
+        }
         if (size==0) {
             head = node;
         } else {
@@ -44,6 +50,9 @@ public class DLL<T extends Comparable<T>>{
     }
 
     public void insert(DNode<T> node, int position) {
+        if(search(node) != null){
+            return;
+        }
         if (position < 0 || position > size) {
             throw new IndexOutOfBoundsException();
         }
@@ -65,6 +74,9 @@ public class DLL<T extends Comparable<T>>{
     }
 
     public void sortedInsert(DNode<T> newNode) {
+        if(search(newNode) != null){
+            return;
+        }
         if(!isSorted()){
             sort();
         }

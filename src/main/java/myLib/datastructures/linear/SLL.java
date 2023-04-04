@@ -25,6 +25,9 @@ public class SLL<T extends Comparable<T>> {
     
     // Insert node at head of the list
     public void insertHead(Node<T> node) {
+        if(search(node) != null){
+            return;
+        }
         if (head == null) {
             head = node;
             tail = node;
@@ -37,6 +40,9 @@ public class SLL<T extends Comparable<T>> {
     
     // Insert node at tail of the list
     public void insertTail(Node<T> node) {
+        if(search(node) != null){
+            return;
+        }
         if (tail == null) {
             head = node;
             tail = node;
@@ -49,6 +55,9 @@ public class SLL<T extends Comparable<T>> {
     
     // Insert node in the specified position
     public void insert(Node<T> node, int position) {
+        if(search(node) != null){
+            return;
+        }
         if (position < 0 || position > size) {
             throw new IndexOutOfBoundsException();
         } else if (position == 0) {
@@ -65,6 +74,9 @@ public class SLL<T extends Comparable<T>> {
     
     // Inserts node object in its proper position in a sorted list
     public void sortedInsert(Node<T> node) {
+        if(search(node) != null){
+            return;
+        }
         if (!isSorted()){
             sort();
         }
