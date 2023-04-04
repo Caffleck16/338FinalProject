@@ -5,9 +5,9 @@ import main.java.myLib.datastructures.nodes.*;
 
 public class SLL<T extends Comparable<T>> {
     
-    private Node<T> head;
-    private Node<T> tail;
-    private int size;
+    protected Node<T> head;
+    protected Node<T> tail;
+    protected int size;
     
     // Default constructor
     public SLL() {
@@ -73,7 +73,7 @@ public class SLL<T extends Comparable<T>> {
             return;
         }
         Node<T> curr = head;
-        while (curr.getNext() != null && node.getData().compareTo(curr.getNext().getData()) > 0) {
+        while (curr.getNext() != tail.getNext() && node.getData().compareTo(curr.getNext().getData()) > 0) {
             curr = curr.getNext();
         }
         node.setNext(curr.getNext());
@@ -84,7 +84,7 @@ public class SLL<T extends Comparable<T>> {
     // Looks up node in the list
     public Node<T> search(Node<T> node) {
         Node<T> curr = head;
-        while (curr != null) {
+        for(int i = 0; i < size; i++) {
             if (curr.equals(node)) {
                 return curr;
             }
@@ -111,9 +111,7 @@ public class SLL<T extends Comparable<T>> {
             throw new NoSuchElementException();
         }
         if (head == tail) {
-            head = null;
-            tail = null;
-            size--;
+            clear();
             return;
         }
         Node<T> curr = head;
@@ -132,9 +130,11 @@ public class SLL<T extends Comparable<T>> {
         }
         if(node == head){
             deleteHead();
+            return;
         }
         if(node == tail){
             deleteTail();
+            return;
         }
         Node<T> curNode = head;
         while(curNode.getNext() != node){
@@ -166,7 +166,7 @@ public class SLL<T extends Comparable<T>> {
             return true;
         }
         Node<T> current = head;
-        while (current.getNext() != null) {
+        while (current != tail) {
             if (current.getData().compareTo(current.getNext().getData()) > 0) {
                 // If the current node is greater than the next node, the list is not sorted
                 return false;
@@ -177,46 +177,37 @@ public class SLL<T extends Comparable<T>> {
         return true;
     }
 
-    private void sort(){
+    public void sort(){
         if (head == null || head.getNext() == null) {
             // If the list is empty or has only one element, it is considered sorted
             return;
         }
-            // use insertion sort algorithm to sort the list
-        Node<T> prev = head;
-        Node<T> curr = head.getNext();
 
-        while (curr != null) {
-            Node<T> node = curr.getNext();
-            prev.setNext(null);
-
-            if (curr.getData().compareTo(head.getData()) < 0) {
-                curr.setNext(head);
-                head = curr;
-            } else {
-                Node<T> temp = head;
-                while (temp.getNext() != null) {
-                    if (curr.getData().compareTo(temp.getNext().getData()) < 0) {
-                        curr.setNext(temp.getNext());
-                        temp.setNext(curr);
-                        break;
-                    }
-                    temp = temp.getNext();
+        Node<T> sortedList = null;
+        Node<T> curNode = head;
+        for(int i = 0; i < size; i++){
+            Node<T> next = curNode.getNext();
+            if(sortedList == null || curNode.getData().compareTo(sortedList.getData()) < 0){
+                curNode.setNext(sortedList);
+                sortedList = curNode;
+            } else{
+                Node<T> prevNode = sortedList;
+                while(prevNode.getNext() != null && prevNode.getNext().getData().compareTo(curNode.getData()) < 0){
+                    prevNode = prevNode.getNext();
                 }
-                if (temp.getNext() == null) {
-                    temp.setNext(curr);
-                    curr.setNext(null);
-                }
+                curNode.setNext(prevNode.getNext());
+                prevNode.setNext(curNode);
             }
-            curr = node;
+            curNode = next;
         }
-        // update tail pointer
-        Node<T> temp = head;
-        while (temp.getNext() != null) {
-            temp = temp.getNext();
+        head = sortedList;
+        curNode = head;
+        while(curNode.getNext() != null){
+            curNode = curNode.getNext();
         }
-        tail = temp;
+        tail = curNode;
     }
+    
 
     public void clear() {
         head = null;
@@ -232,11 +223,9 @@ public class SLL<T extends Comparable<T>> {
             System.out.println("List is empty");
         }
         var curNode = head;
-        int i = 0;
-        while(curNode != null){
+        for(int i = 0; i<size; i++){
             System.out.println("Node " + i + ": " + curNode.getData());
             curNode = curNode.getNext();
-            i++;
         }
     }
 }
