@@ -13,6 +13,7 @@ public class DLLTest {
         dll.insertHead(new DNode<String>("apple"));
         dll.insertHead(new DNode<String>("banana"));
         assertEquals("banana", dll.getHead().getData());
+        assertEquals("banana", dll.getTail().getPrevious().getData());
         assertNull(dll.getHead().getPrevious());
     }
 
@@ -46,7 +47,8 @@ public class DLLTest {
         dll.sortedInsert(node3);
         assertEquals(node2, dll.getHead());
         assertEquals(node3, dll.getHead().getNext());
-        assertEquals(dll.getTail(), node1);
+        assertEquals(node1, dll.getTail());
+        assertEquals(node3, dll.getTail().getPrevious());
         assertTrue(dll.isSorted());
     }
 
@@ -66,6 +68,7 @@ public class DLLTest {
         dll.insertTail(new DNode<String>("banana"));
         dll.deleteHead();
         assertEquals("banana", dll.getHead().getData());
+        assertNull(dll.getHead().getPrevious());
     }
 
     @Test

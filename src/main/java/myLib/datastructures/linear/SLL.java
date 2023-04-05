@@ -137,11 +137,12 @@ public class SLL<T extends Comparable<T>> {
         if (head == null) {
             throw new NoSuchElementException();
         }
+        if (head == tail) {
+            clear();
+            return;
+        }
         head = head.getNext();
         size--;
-        if (size == 0) {
-            tail = null;
-        }
     }
     
     /**
