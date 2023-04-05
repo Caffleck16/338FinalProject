@@ -1,6 +1,7 @@
 package main.java.myLib.datastructures.trees;
 import main.java.myLib.datastructures.nodes.*;
-
+import java.util.Queue;
+import java.util.LinkedList;
 /**
  * BST - Binary Search Tree (assumes nodes will not have duplicate values) 
  * 
@@ -160,6 +161,9 @@ public class BST<T extends Comparable<T>> {
             }
             return null;
         }
+        /**
+         * printInOrder() - method to print all nodes in the tree in order.
+         */
     public void printInOrder() {
         String txt = "";
         TNode<T> temp = this.root;
@@ -167,7 +171,7 @@ public class BST<T extends Comparable<T>> {
         if (temp == null) {
             txt += "No Bst Exists";
             return;
-        }
+        } 
         while (temp != null) {
             if (temp.getLeft() == null) {
                 txt += temp.toString() + " ";
@@ -189,5 +193,50 @@ public class BST<T extends Comparable<T>> {
             }
         }
         System.out.println(txt);
+    }
+
+    public void printBF() {
+        String txt = "";
+        if (this.root == null) {
+            System.out.println("BST does not exist");
+            return;
+        }
+        // IF WE ARE ALLOWED TO USE JAVA.UTIL
+
+        Queue<TNode<T>> queue = new LinkedList<>();
+        queue.add(this.root);
+
+        while (!queue.isEmpty()) {
+            TNode<T> node = queue.poll();
+            txt += node.toString() + " ";
+
+            if (node.getLeft() != null) {
+                queue.add(node.getLeft());
+            }
+
+            if (node.getRight() != null) {
+                queue.add(node.getRight());
+            }
+        }
+
+        // Node<TNode<T>> node = new Node<>(this.root);
+        // Queue<T> queue = new Queue<>();
+        // queue.enqueue(node);
+
+        // while(!queue.empty()) {
+        //     Node<TNode<T>> out = queue.dequeue();
+        //     txt += out.getData().toString();
+
+        //     if (out.getData().getLeft() != null) {
+        //         Node<TNode<T>> outLeft = new Node<TNode<T>>(out.getData().getLeft());
+        //         queue.enqueue(outLeft);
+        //     }
+
+        //     if (out.getData().getRight() != null) {
+        //         Node<TNode<T>> outRight = new Node<TNode<T>>(out.getData().getLeft());
+        //         queue.enqueue(outRight);
+        //     }
+        // }
+
     }
 }
