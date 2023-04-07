@@ -194,7 +194,9 @@ public class BST<T extends Comparable<T>> {
         }
         System.out.println(txt);
     }
-
+    /**
+     * printBF() - prints the tree in breadth-first order
+     */
     public void printBF() {
         String txt = "";
         if (this.root == null) {
@@ -218,7 +220,7 @@ public class BST<T extends Comparable<T>> {
                 queue.add(node.getRight());
             }
         }
-
+        // IF NOT :(
         // Node<TNode<T>> node = new Node<>(this.root);
         // Queue<T> queue = new Queue<>();
         // queue.enqueue(node);
