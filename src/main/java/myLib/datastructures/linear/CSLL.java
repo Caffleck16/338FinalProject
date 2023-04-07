@@ -39,7 +39,9 @@ public class CSLL<T extends Comparable<T>> extends SLL<T> {
      */
     public void deleteHead() {
         super.deleteHead();
-        tail.setNext(head);
+        if(tail != null){
+            tail.setNext(head);
+        }
     }
 
     /**
@@ -48,7 +50,9 @@ public class CSLL<T extends Comparable<T>> extends SLL<T> {
      */
     public void deleteTail() {
         super.deleteTail();
-        tail.setNext(head);
+        if(tail != null){
+            tail.setNext(head);
+        }
     }
 
     /**
@@ -56,6 +60,8 @@ public class CSLL<T extends Comparable<T>> extends SLL<T> {
      */
     public void sort(){
         super.sort();
-        tail.setNext(head);
+        if(tail != null){
+            tail.setNext(head);
+        }
     }
 }

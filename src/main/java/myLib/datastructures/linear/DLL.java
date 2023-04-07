@@ -165,12 +165,13 @@ public class DLL<T extends Comparable<T>>{
         if(head == null){
             throw new NoSuchElementException();
         }
+        if (head == tail) {
+            clear();
+            return;
+        }
         head = head.getNext();
         head.setPrevious(null);
         size--;
-        if (size == 0) {
-            tail = null;
-        }
     }
 
     /**
@@ -206,6 +207,10 @@ public class DLL<T extends Comparable<T>>{
         }
         if(node == tail){
             deleteTail();
+            return;
+        }
+        if(size == 1){
+            clear();
             return;
         }
         DNode<T> prevNode = node.getPrevious();
