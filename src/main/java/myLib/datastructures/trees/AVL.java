@@ -11,6 +11,7 @@ public class AVL<T extends Comparable<T>> extends BST<T>{
     public AVL() {
         this.root = null;
     }
+
     /**
      * Overloaded Constructor
      * @param val - value of node
@@ -20,6 +21,7 @@ public class AVL<T extends Comparable<T>> extends BST<T>{
             this.root = node;
         
     }
+
     /**
      * Overloaded Constructor - constructor performs a self balancing algorithim on the tree when setting a node = root
      * @param node - node to set equal to root
@@ -31,8 +33,140 @@ public class AVL<T extends Comparable<T>> extends BST<T>{
             root = balanceTree(node);
         }
     }
+
     /**
-     * balanceTree() - private helper function
+     * getRoot() - getter method for root
+     * @return - root
+     */
+    public TNode<T> getRoot() {
+        return this.root;
+    }
+
+    /**
+     * setRoot() - setter method for root
+     * @param node - node to set root
+     */
+    public void setRoot(TNode<T> node) {
+        this.root = node;
+        if (node.getLeft() != null || node.getRight() != null) {
+            root = balanceTree(node);
+        }
+    }
+
+    /**
+     * insert() - inserts a node into the tree then balances the tree
+     * @param val - integer value for node
+     */
+    public void insert(int val) {
+        TNode<T> node = new TNode(val, 0, null, null, null);
+        super.insert(node);
+        this.root = balanceTree(this.root);
+    }
+
+    /**
+     * insert() - inserts a node into the tree then balances the ree
+     * @param node - node to insert into the tree
+     */
+    public void insert(TNode<T> node) {
+        super.insert(node);
+        this.root = balanceTree(this.root);
+    }
+
+    /**
+     * delete() - call delete with root node
+     * @param value - value of node to be deleted
+     */
+    public void delete(T value) {
+        root = delete(root, value);
+    }
+
+    /**
+     * delete() - delete the node with the matching value
+     * @param node - root node of tree to delete
+     * @param value - value to delete
+     * @return - new balanced tree with deleted node
+     */
+    private TNode<T> delete(TNode<T> node, T value) {
+        TNode<T> temp = new TNode(value, 0, null, null, null);
+        if (node == null) {
+            return null;
+        }
+
+        if (node.getData().compareTo(temp.getData()) < 0) { // node < temp
+
+            node.setLeft(delete(node.getLeft(), value));
+        } else if (node.getData().compareTo(temp.getData()) > 0) { // node > temp
+            node.setRight(delete(node.getRight(), value));
+        } else {
+            // Node to delete is this
+
+            if (node.getLeft() == null || node.getRight() == null) {
+                TNode<T> finder;
+                if (node.getLeft() != null) {
+                    finder = node.getLeft();
+                } else {
+                    finder = node.getRight();
+                }
+
+                if (finder == null) {
+                    finder = node;
+                    node = null;
+                } else {
+                    node = finder;
+                }
+                } else {
+                    node.setData(minValue(node.getRight()));
+                    node.setRight(delete(node.getRight(), node.getData()));
+                }
+            }
+
+            if (node == null) {
+                return null;
+            }
+
+        node.setBalance(Math.max(height(node.getLeft()), height(node.getRight())) + 1);
+        return balanceTree(node);
+    }
+    
+    /**
+     * calls parent class search method
+     * 
+     * @return - node with value in the tree.
+     */
+    public TNode<T> search(int val) {
+        return super.search(val);
+    }
+
+    /**
+     * printInOrder() - calls parent method
+     */
+    public void printInOrder() {
+        super.printInOrder();
+    }
+
+    /**
+     * printBF() - calls parent method
+     */
+    public void printBF() {
+        super.printBF();
+    }
+
+    /**
+     * minValue() - private helper function to find minvalue of a tree
+     * @param node - node to find minvalues of
+     * @return - returns the min value
+     */
+    private T minValue(TNode<T> node) {
+        T minValue = node.getData();
+        while (node.getLeft() != null) {
+            minValue = node.getLeft().getData();
+            node = node.getLeft();
+        }
+        return minValue;
+    }
+
+    /**
+     * balanceTree() - private helper function that balances the tree 
      * @param node - node to perform the balance on
      * @return - returns a balanced subtree for the given node
      */
@@ -66,6 +200,7 @@ public class AVL<T extends Comparable<T>> extends BST<T>{
 
         return node;
     }
+
     /**
      * balanceFactor() - helper function to easily access the balance factor of a node
      * @param node - node to get balance factor of
@@ -77,6 +212,7 @@ public class AVL<T extends Comparable<T>> extends BST<T>{
         }
         return height(node.getLeft()) - height(node.getRight());
     }
+
     /**
      * height() - helper function to easily access the height/balance of a node but checks to avoid nullpointers
      * @param node - node to get height of
@@ -88,6 +224,7 @@ public class AVL<T extends Comparable<T>> extends BST<T>{
         }
         return node.getBalance();
     }
+
     /**
      * rotateRight() - performs a right rotation on the given node
      * @param y - node to perform rotation on
@@ -105,6 +242,7 @@ public class AVL<T extends Comparable<T>> extends BST<T>{
 
         return x;
     }
+    
     /**
      * rotateLeft() - performs a left rotation on the given node
      * @param x - node to perform rotation on
