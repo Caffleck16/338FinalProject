@@ -19,8 +19,8 @@ public class BST<T extends Comparable<T>> {
     /**
      * Constructor - given a val argument, create a new root node with val 
      */
-    public BST(int val) {
-        TNode<T> tempNode = new TNode(val, 0, null, null, null);
+    public BST(T val) {
+        TNode<T> tempNode = new TNode<T>(val, 0, null, null, null);
         this.root = tempNode; 
     }
     /**
@@ -52,8 +52,8 @@ public class BST<T extends Comparable<T>> {
      * insert() - creates a node with the integer value and then calls insert(node)
      * @params val - value for node to insert
      */
-    public void insert(int val) {
-        TNode<T> tempNode = new TNode(val, 0, null, null, null);
+    public void insert(T val) {
+        TNode<T> tempNode = new TNode<T>(val, 0, null, null, null);
         insert(tempNode);
     }
     /**
@@ -93,8 +93,8 @@ public class BST<T extends Comparable<T>> {
      * @param val - value of node to be deleted
      * 
      */
-    public void delete(int val) {
-        TNode<T> temp = new TNode(val, 0, root, root, root);
+    public void delete(T val) {
+        TNode<T> temp = new TNode<T>(val, 0, root, root, root);
         // if tree is empty
         if (this.root == null) {
             System.out.println("Tree does not exist, therefore no nodes can be found");
@@ -147,8 +147,8 @@ public class BST<T extends Comparable<T>> {
      * @param val - value of node to delete
      * @return - Null if node is not found, node if found.
      */
-    public TNode<T> search(int val) {
-            TNode<T> node = new TNode(val, 0, null, null, null);
+    public TNode<T> search(T val) {
+            TNode<T> node = new TNode<T>(val, 0, null, null, null);
             TNode<T> finder = this.root;
             while(finder != null) {
                 if (finder.getData().compareTo(node.getData()) > 0 ) {      // node < finder
@@ -220,6 +220,7 @@ public class BST<T extends Comparable<T>> {
                 queue.add(node.getRight());
             }
         }
+        System.out.println(txt);
         // IF NOT :(
         // Node<TNode<T>> node = new Node<>(this.root);
         // Queue<T> queue = new Queue<>();
