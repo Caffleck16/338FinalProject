@@ -16,8 +16,8 @@ public class AVL<T extends Comparable<T>> extends BST<T>{
      * Overloaded Constructor
      * @param val - value of node
      */
-    public AVL(int val) {
-        TNode<T> node = new TNode(val, 0, null, null, null); 
+    public AVL(T val) {
+        TNode<T> node = new TNode<T>(val, 0, null, null, null); 
             this.root = node;
         
     }
@@ -57,8 +57,8 @@ public class AVL<T extends Comparable<T>> extends BST<T>{
      * insert() - inserts a node into the tree then balances the tree
      * @param val - integer value for node
      */
-    public void insert(int val) {
-        TNode<T> node = new TNode(val, 0, null, null, null);
+    public void insert(T val) {
+        TNode<T> node = new TNode<T>(val, 0, null, null, null);
         super.insert(node);
         this.root = balanceTree(this.root);
     }
@@ -87,7 +87,7 @@ public class AVL<T extends Comparable<T>> extends BST<T>{
      * @return - new balanced tree with deleted node
      */
     private TNode<T> delete(TNode<T> node, T value) {
-        TNode<T> temp = new TNode(value, 0, null, null, null);
+        TNode<T> temp = new TNode<T>(value, 0, null, null, null);
         if (node == null) {
             return null;
         }
@@ -133,7 +133,7 @@ public class AVL<T extends Comparable<T>> extends BST<T>{
      * 
      * @return - node with value in the tree.
      */
-    public TNode<T> search(int val) {
+    public TNode<T> search(T val) {
         return super.search(val);
     }
 
@@ -242,7 +242,7 @@ public class AVL<T extends Comparable<T>> extends BST<T>{
 
         return x;
     }
-    
+
     /**
      * rotateLeft() - performs a left rotation on the given node
      * @param x - node to perform rotation on
