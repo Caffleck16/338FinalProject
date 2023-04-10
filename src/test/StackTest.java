@@ -9,7 +9,7 @@ public class StackTest {
 
     @Test
     public void testPushAndPop() {
-        Stack<Integer> stack = new Stack<>();
+        StackLL<Integer> stack = new StackLL<>();
         stack.push(new Node<Integer>(1));
         stack.push(new Node<Integer>(2));
         stack.push(new Node<Integer>(3));
@@ -21,7 +21,7 @@ public class StackTest {
 
     @Test
     public void testempty() {
-        Stack<String> stack = new Stack<>();
+        StackLL<String> stack = new StackLL<>();
         assertTrue(stack.empty());
         stack.push(new Node<String>("foo"));
         assertFalse(stack.empty());
@@ -31,7 +31,7 @@ public class StackTest {
 
     @Test
     public void testPeek() {
-        Stack<Double> stack = new Stack<>();
+        StackLL<Double> stack = new StackLL<>();
         stack.push(new Node<Double>(1.0));
         stack.push(new Node<Double>(2.0));
         assertEquals(2.0, stack.peek().getData(), 0.001);
@@ -44,7 +44,7 @@ public class StackTest {
     
     @Test
     public void irrelevantMethodsAreEmptyTest(){
-        Stack<Integer> stack = new Stack<>();
+        StackLL<Integer> stack = new StackLL<>();
         Node<Integer> node1 = new Node<>(1);
         Node<Integer> node2 = new Node<>(2);
         stack.push(node1);

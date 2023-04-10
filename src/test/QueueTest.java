@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 public class QueueTest {
     @Test
     public void testEnqueueAndDequeue() {
-        Queue<Integer> queue = new Queue<>();
+        QueueLL<Integer> queue = new QueueLL<>();
         queue.enqueue(new Node<Integer>(1));
         queue.enqueue(new Node<Integer>(2));
         queue.enqueue(new Node<Integer>(3));
@@ -19,7 +19,7 @@ public class QueueTest {
 
     @Test
     public void testempty() {
-        Queue<String> queue = new Queue<>();
+        QueueLL<String> queue = new QueueLL<>();
         assertTrue(queue.empty());
         queue.enqueue(new Node<String>("foo"));
         assertFalse(queue.empty());
@@ -29,7 +29,7 @@ public class QueueTest {
 
     @Test
     public void testPeek() {
-        Queue<Double> queue = new Queue<>();
+        QueueLL<Double> queue = new QueueLL<>();
         queue.enqueue(new Node<Double>(1.0));
         queue.enqueue(new Node<Double>(2.0));
         assertEquals(1.0, queue.peek().getData(), 0.001);
@@ -41,7 +41,7 @@ public class QueueTest {
 
     @Test
     public void irrelevantMethodsAreEmptyTest(){
-        Queue<Integer> queue = new Queue<>();
+        QueueLL<Integer> queue = new QueueLL<>();
         Node<Integer> node1 = new Node<>(2);
         Node<Integer> node2 = new Node<>(1);
         queue.enqueue(node1);
