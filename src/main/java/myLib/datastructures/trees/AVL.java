@@ -1,10 +1,11 @@
 package main.java.myLib.datastructures.trees;
+import java.util.Stack;
+
 import main.java.myLib.datastructures.nodes.*;
 /**
  * AVL class for a self balancing binary tree
  */
 public class AVL<T extends Comparable<T>> extends BST<T>{
-    private TNode<T> root;
     /**
      * Default Constructor
      */
@@ -27,10 +28,24 @@ public class AVL<T extends Comparable<T>> extends BST<T>{
      * @param node - node to set equal to root
      */
     public AVL(TNode<T> node) {
-        this.root = node;
-
+        this.root = null;
         if (node.getLeft() != null || node.getRight() != null) {
-            root = balanceTree(node);
+            TNode<T> temp = node;
+            Stack<TNode<T>> stack = new Stack<>();
+
+            while (temp != null || !stack.isEmpty()) {
+                while (temp != null) {
+                    stack.push(temp);
+                    temp = temp.getLeft();
+                }
+
+                temp = stack.pop();
+                insert(temp.getData());
+
+                temp = temp.getRight();
+            }
+        } else {
+            this.root = node;
         }
     }
 
@@ -58,26 +73,53 @@ public class AVL<T extends Comparable<T>> extends BST<T>{
      * @param val - integer value for node
      */
     public void insert(T val) {
-        TNode<T> node = new TNode<T>(val, 0, null, null, null);
-        super.insert(node);
-        this.root = balanceTree(this.root);
+        this.root = insert(this.root, val);
     }
 
     /**
      * insert() - inserts a node into the tree then balances the ree
      * @param node - node to insert into the tree
      */
-    public void insert(TNode<T> node) {
-        super.insert(node);
-        this.root = balanceTree(this.root);
+    public TNode<T> insert(TNode<T> node, T val) {
+        if (node == null) {
+            return new TNode<T>(val, 0, null, null, null);
+        }
+        
+        if (node.getData().compareTo(val) > 0) {
+            node.setLeft(insert(node.getLeft(), val));
+        } else if (node.getData().compareTo(val) < 0) {
+            node.setRight(insert(node.getRight(), val));
+        } else {
+            return node;
+        }
+        
+        node.setBalance(1 + Math.max(height(node.getLeft()), height(node.getRight())));
+        int balance = balanceFactor(node);
+        if (balance > 1) {
+            if (node.getLeft().getData().compareTo(val) > 0) {
+                return rotateRight(node);
+            } else if (node.getLeft().getData().compareTo(val) < 0) {
+                node.setLeft(rotateLeft(node.getLeft()));
+                return rotateRight(node);
+            }
+        }
+        if (balance < -1) {
+            if (node.getRight().getData().compareTo(val) < 0) {
+                return rotateLeft(node);
+            } else if (node.getRight().getData().compareTo(val) > 0) {
+                node.setRight(rotateRight(node.getRight()));
+                return rotateLeft(node);
+            }
+        }
+        return node;
     }
-
     /**
      * delete() - call delete with root node
      * @param value - value of node to be deleted
      */
+    @Override
     public void delete(T value) {
-        root = delete(root, value);
+        this.root = delete(this.root, value);
     }
 
     /**
@@ -86,16 +128,15 @@ public class AVL<T extends Comparable<T>> extends BST<T>{
      * @param value - value to delete
      * @return - new balanced tree with deleted node
      */
-    private TNode<T> delete(TNode<T> node, T value) {
-        TNode<T> temp = new TNode<T>(value, 0, null, null, null);
+    public TNode<T> delete(TNode<T> node, T value) {
         if (node == null) {
-            return null;
+            return node;
         }
 
-        if (node.getData().compareTo(temp.getData()) < 0) { // node < temp
+        if (node.getData().compareTo(value) > 0) { // node < value
 
             node.setLeft(delete(node.getLeft(), value));
-        } else if (node.getData().compareTo(temp.getData()) > 0) { // node > temp
+        } else if (node.getData().compareTo(value) < 0) { // node > value
             node.setRight(delete(node.getRight(), value));
         } else {
             // Node to delete is this
@@ -115,17 +156,14 @@ public class AVL<T extends Comparable<T>> extends BST<T>{
                     node = finder;
                 }
                 } else {
-                    node.setData(minValue(node.getRight()));
-                    node.setRight(delete(node.getRight(), node.getData()));
+                    T finder = minValue(node.getRight());
+                    node.setData(finder);
+                    node.setRight(delete(node.getRight(), finder));
                 }
             }
 
-            if (node == null) {
-                return null;
-            }
-
-        node.setBalance(Math.max(height(node.getLeft()), height(node.getRight())) + 1);
-        return balanceTree(node);
+            node = balanceTree(node);
+            return node;
     }
     
     /**
@@ -177,36 +215,32 @@ public class AVL<T extends Comparable<T>> extends BST<T>{
 
         int balance = balanceFactor(node);
 
-        if (balance > 1) {
-            if (balanceFactor(node.getLeft()) < 0) {
-                node.setLeft(rotateLeft(node.getLeft()));
-            }
-
-            node = rotateRight(node);
-        }
-
-        else if (balance < -1) {
-            if (balanceFactor(node.getRight()) > 0) {
+        if (balance < -1) {
+            if (balanceFactor(node.getRight()) <= 0) { // val > right
+                return rotateLeft(node);
+            } else { // val < right
                 node.setRight(rotateRight(node.getRight()));
+                return rotateLeft(node);
             }
-
-            node = rotateLeft(node.getLeft());
         }
-
-        node.setLeft(balanceTree(node.getLeft()));
-        node.setRight(balanceTree(node.getRight()));
-
-        node.setBalance(Math.max(height(node.getLeft()), height(node.getRight())) + 1);
+        if (balance > 1) {
+            if (balanceFactor(node.getLeft()) >= 0) { // val < left
+                return rotateRight(node);
+            } else { 
+                node.setLeft(rotateLeft(node.getLeft()));
+                return rotateRight(node);
+            }
+        }
 
         return node;
     }
 
     /**
-     * balanceFactor() - helper function to easily access the balance factor of a node
+     * balanceFactor() - helper function to easily access the balance factor of a node (PUBLIC FOR TESTING)
      * @param node - node to get balance factor of
      * @return - balance factor node
      */
-    private int balanceFactor(TNode<T> node) {
+    public int balanceFactor(TNode<T> node) {
         if (node == null) {
             return 0;
         }
@@ -220,7 +254,7 @@ public class AVL<T extends Comparable<T>> extends BST<T>{
      */
     private int height(TNode<T> node) {
         if (node == null) {
-            return 0;
+            return -1;
         }
         return node.getBalance();
     }
@@ -232,10 +266,10 @@ public class AVL<T extends Comparable<T>> extends BST<T>{
      */
     private TNode<T> rotateRight(TNode<T> y) {
         TNode<T> x = y.getLeft();
-        TNode<T> T = x.getRight();
+        TNode<T> T2 = x.getRight();
 
+        y.setLeft(T2);
         x.setRight(y);
-        y.setLeft(T);
 
         y.setBalance(Math.max(height(y.getLeft()), height(y.getRight())) + 1);
         x.setBalance(Math.max(height(x.getLeft()), height(x.getRight())) + 1);
@@ -250,13 +284,13 @@ public class AVL<T extends Comparable<T>> extends BST<T>{
      */
     private TNode<T> rotateLeft(TNode<T> x) {
         TNode<T> y = x.getRight();
-        TNode<T> T = y.getLeft();
+        TNode<T> T2 = y.getLeft();
 
         y.setLeft(x);
-        x.setRight(T);
+        x.setRight(T2);
 
         x.setBalance(Math.max(height(x.getLeft()), height(x.getRight())) + 1);
-        y.setBalance(Math.max(height(y.getLeft()), height(y.getRight())) + 1);
+        y.setBalance(Math.max(height(y.getLeft()), height(y.getRight())) + 1);        
 
         return y;
     }
