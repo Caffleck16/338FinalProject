@@ -1,13 +1,13 @@
 package main.java.myLib.datastructures.linear;
 import main.java.myLib.datastructures.nodes.*;
 
-public class Stack<T extends Comparable<T>> extends SLL<T>{
+public class StackLL<T extends Comparable<T>> extends SLL<T>{
     //Constructors
-    public Stack(){
+    public StackLL(){
         super();
     }
 
-    public Stack(Node<T> head){
+    public StackLL(Node<T> head){
         super(head);
     }
 

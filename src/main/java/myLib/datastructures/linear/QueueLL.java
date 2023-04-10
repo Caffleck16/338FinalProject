@@ -1,14 +1,14 @@
 package main.java.myLib.datastructures.linear;
 import main.java.myLib.datastructures.nodes.*;
 
-public class Queue<T extends Comparable<T>> extends SLL<T>{
+public class QueueLL<T extends Comparable<T>> extends SLL<T>{
     //Constructors
 
-    public Queue(){
+    public QueueLL(){
         super();
     }
 
-    public Queue(Node<T> head){
+    public QueueLL(Node<T> head){
         super(head);
     }
 
