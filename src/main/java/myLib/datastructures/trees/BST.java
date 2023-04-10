@@ -1,6 +1,7 @@
 package main.java.myLib.datastructures.trees;
 import main.java.myLib.datastructures.nodes.*;
 import java.util.Queue;
+import java.util.Stack;
 import java.util.LinkedList;
 /**
  * BST - Binary Search Tree (assumes nodes will not have duplicate values) 
@@ -117,32 +118,50 @@ public class BST<T extends Comparable<T>> {
             } else {
                 break;
             }
-        }                                               // iter should now be equal to the value of the node to be deleted
-        if (iter.getLeft() == null) {
+        }
+        if (iter.getRight() == null && iter.getLeft() != null) {
             if (iter.getParent() == null) {
-                iter = iter.getRight();
-                return;
+                iter.setData(iter.getLeft().getData());
+                iter.setLeft(null);
+            } else if (iter.getParent().getRight() == iter) {
+                iter.getParent().setRight(iter.getLeft());
+                iter.getLeft().setParent(iter);
+            } else {
+                iter.getParent().setLeft(iter.getLeft());
+                iter.getLeft().setParent(iter);
             }
-            iter.getParent().setRight(iter.getRight()); // iter parent's right is now set to iters right effectively skipping iter.
-            return;
-        } else if (iter.getRight() == null) {
+        }                                              
+        else if (iter.getRight() != null && iter.getLeft() == null) {
             if (iter.getParent() == null) {
-                iter = iter.getLeft();
-                return;
+                iter.setData(iter.getRight().getData());
+                iter.setRight(null);
+            } else if (iter.getParent().getRight() == iter) {
+                iter.getParent().setRight(iter.getRight());
+                iter.getRight().setParent(iter);
+            } else {
+                iter.getParent().setLeft(iter.getRight());
+                iter.getRight().setParent(iter);
             }
-            iter.getParent().setLeft(iter.getLeft());   // iter parent's left is now set to iters left effectively skipping iter.
-            return;
-        } else {                                        // left and right nodes are not null, meaning node must be set to right subtrees min value
-            TNode<T> finder = iter.getRight();          // finder = root of right subtree
+        }
+        else if (iter.getRight() == null && iter.getLeft() == null) {
+            if (iter.getParent() == null) {
+                this.root = null;
+            } else if (iter.getParent().getLeft() == iter) {
+                iter.getParent().setLeft(null);
+            } else {
+                iter.getParent().setRight(null);
+            }
+        } else {                                       
+            TNode<T> finder = iter.getRight();          
             while(finder.getLeft() != null) {
                 finder = finder.getLeft();
-            }                                           // finder is now equal to the right subtrees min value
+            }                                          
             if (finder.getParent() == iter)  {
                 iter.setData(finder.getData());
                 iter.setRight(null);
             } else {
-                iter.setData(finder.getData());             // node to delete is now gone and set to equal finder's data.
-                finder.getParent().setLeft(null);      // set the node finder was holding to null to correct the tree.
+                iter.setData(finder.getData());             
+                finder.getParent().setLeft(null);      
             }        
         }
         
@@ -170,34 +189,26 @@ public class BST<T extends Comparable<T>> {
          * printInOrder() - method to print all nodes in the tree in order.
          */
     public void printInOrder() {
+        if (this.root == null) {
+            System.out.print("Tree does not exist\n");
+            return;
+        }
         String txt = "";
         TNode<T> temp = this.root;
-        TNode<T> prev;
-        if (temp == null) {
-            txt += "No Bst Exists";
-            return;
-        } 
-        while (temp != null) {
-            if (temp.getLeft() == null) {
-                txt += temp.toString() + " ";
-                temp = temp.getRight();
-            } else {
-                prev = temp.getRight();
-                while (prev.getRight() != null && prev.getRight() != temp) {
-                    prev = prev.getRight();
-                }
+        Stack<TNode<T>> stack = new Stack<>();
 
-                if (prev.getRight() == null) {
-                    prev.setRight(temp); // this might cause lots of errors later.
-                    temp = temp.getLeft();
-                } else {
-                    prev.setRight(null);
-                    txt += temp.toString() + " ";
-                    temp = temp.getRight();
-                }
+        while (temp != null || !stack.isEmpty()) {
+            while (temp != null) {
+                stack.push(temp);
+                temp = temp.getLeft();
             }
+
+            temp = stack.pop();
+            txt += temp.toString() + " ";
+
+            temp = temp.getRight();
         }
-        System.out.println(txt);
+        System.out.print(txt + "\n");
     }
     /**
      * printBF() - prints the tree in breadth-first order
@@ -205,7 +216,7 @@ public class BST<T extends Comparable<T>> {
     public void printBF() {
         String txt = "";
         if (this.root == null) {
-            System.out.println("BST does not exist");
+            System.out.print("Tree does not exist\n");
             return;
         }
         // IF WE ARE ALLOWED TO USE JAVA.UTIL
@@ -225,7 +236,7 @@ public class BST<T extends Comparable<T>> {
                 queue.add(node.getRight());
             }
         }
-        System.out.println(txt);
+        System.out.print(txt + "\n");
         // IF NOT :(
         // Node<TNode<T>> node = new Node<>(this.root);
         // Queue<T> queue = new Queue<>();
