@@ -137,8 +137,13 @@ public class BST<T extends Comparable<T>> {
             while(finder.getLeft() != null) {
                 finder = finder.getLeft();
             }                                           // finder is now equal to the right subtrees min value
-            iter.setData(finder.getData());             // node to delete is now gone and set to equal finder's data.
-            finder.getParent().setLeft(null);      // set the node finder was holding to null to correct the tree.
+            if (finder.getParent() == iter)  {
+                iter.setData(finder.getData());
+                iter.setRight(null);
+            } else {
+                iter.setData(finder.getData());             // node to delete is now gone and set to equal finder's data.
+                finder.getParent().setLeft(null);      // set the node finder was holding to null to correct the tree.
+            }        
         }
         
     }

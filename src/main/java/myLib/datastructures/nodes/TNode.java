@@ -3,7 +3,7 @@ package main.java.myLib.datastructures.nodes;
  * Class for TNodes, which are nodes made for the tree implementations
  */
 public class TNode<T> {
-    private T data;
+    T data;
     private TNode<T> left;
     private TNode<T> right;
     private TNode<T> parent;
@@ -103,7 +103,7 @@ public class TNode<T> {
      * @return node data
      */
     public T getData() {
-        return this.data;
+        return data;
     }
     /*
      * getBalance()
