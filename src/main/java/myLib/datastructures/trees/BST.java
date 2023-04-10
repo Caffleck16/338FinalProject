@@ -8,7 +8,7 @@ import java.util.LinkedList;
  * 
  */
 public class BST<T extends Comparable<T>> {
-    private TNode<T> root;
+    protected TNode<T> root;
 
 // Constructors
     /**
