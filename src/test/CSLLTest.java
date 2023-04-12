@@ -11,7 +11,7 @@ import main.java.myLib.datastructures.nodes.*;
 public class CSLLTest {
     @Test
     public void testConstructorIsSelfReferential(){
-        Node<Integer> node1 = new Node<>(1);
+        SNode<Integer> node1 = new SNode<>(1);
         CSLL<Integer> csll = new CSLL<>(node1);
         assertEquals(node1, csll.getHead());
         assertEquals(node1, csll.getHead().getNext());
@@ -20,8 +20,8 @@ public class CSLLTest {
     @Test
     public void testInsertHead() {
         CSLL<Integer> csll = new CSLL<>();
-        Node<Integer> node1 = new Node<>(1);
-        Node<Integer> node2 = new Node<>(2);
+        SNode<Integer> node1 = new SNode<>(1);
+        SNode<Integer> node2 = new SNode<>(2);
         csll.insertHead(node1);
         csll.insertHead(node2);
         assertEquals(node2, csll.getHead());
@@ -32,7 +32,7 @@ public class CSLLTest {
     @Test
     public void testInsertHeadIsSelfReferential() {
         CSLL<Integer> csll = new CSLL<>();
-        Node<Integer> node1 = new Node<>(1);
+        SNode<Integer> node1 = new SNode<>(1);
         csll.insertHead(node1);
         assertEquals(node1, csll.getHead());
         assertEquals(node1, csll.getHead().getNext());
@@ -41,8 +41,8 @@ public class CSLLTest {
     @Test
     public void testInsertTail() {
         CSLL<Integer> csll = new CSLL<>();
-        Node<Integer> node1 = new Node<>(1);
-        Node<Integer> node2 = new Node<>(2);
+        SNode<Integer> node1 = new SNode<>(1);
+        SNode<Integer> node2 = new SNode<>(2);
         csll.insertTail(node1);
         csll.insertTail(node2);
         assertEquals(node1, csll.getHead());
@@ -53,7 +53,7 @@ public class CSLLTest {
     @Test
     public void testInsertTailIsSelfReferential() {
         CSLL<Integer> csll = new CSLL<>();
-        Node<Integer> node1 = new Node<>(1);
+        SNode<Integer> node1 = new SNode<>(1);
         csll.insertTail(node1);
         assertEquals(node1, csll.getTail());
         assertEquals(node1, csll.getTail().getNext());
@@ -62,9 +62,9 @@ public class CSLLTest {
     @Test
     public void testInsert() {
         CSLL<Integer> csll = new CSLL<>();
-        Node<Integer> node1 = new Node<>(1);
-        Node<Integer> node2 = new Node<>(2);
-        Node<Integer> node3 = new Node<>(3);
+        SNode<Integer> node1 = new SNode<>(1);
+        SNode<Integer> node2 = new SNode<>(2);
+        SNode<Integer> node3 = new SNode<>(3);
         csll.insertHead(node1);
         csll.insert(node2, 1);
         csll.insert(node3, 2);
@@ -77,9 +77,9 @@ public class CSLLTest {
     @Test
     public void testSortedInsert() {
         CSLL<Integer> csll = new CSLL<>();
-        Node<Integer> node1 = new Node<>(1);
-        Node<Integer> node2 = new Node<>(2);
-        Node<Integer> node3 = new Node<>(3);
+        SNode<Integer> node1 = new SNode<>(1);
+        SNode<Integer> node2 = new SNode<>(2);
+        SNode<Integer> node3 = new SNode<>(3);
         csll.sortedInsert(node2);
         csll.sortedInsert(node1);
         csll.sortedInsert(node3);
@@ -93,21 +93,21 @@ public class CSLLTest {
     @Test
     public void testSearch() {
         CSLL<Integer> csll = new CSLL<>();
-        Node<Integer> node1 = new Node<>(1);
-        Node<Integer> node2 = new Node<>(2);
+        SNode<Integer> node1 = new SNode<>(1);
+        SNode<Integer> node2 = new SNode<>(2);
         csll.insertHead(node1);
         csll.insertTail(node2);
         assertEquals(node1, csll.search(node1));
         assertEquals(node2, csll.search(node2));
         assertEquals(node1, csll.search(csll.getTail().getNext()));
-        assertNull(csll.search(new Node<>(3)));
+        assertNull(csll.search(new SNode<>(3)));
     }
 
     @Test
     public void testDeleteHead() {
         CSLL<Integer> csll = new CSLL<>();
-        Node<Integer> node1 = new Node<>(1);
-        Node<Integer> node2 = new Node<>(2);
+        SNode<Integer> node1 = new SNode<>(1);
+        SNode<Integer> node2 = new SNode<>(2);
         csll.insertHead(node1);
         csll.insertTail(node2);
         csll.deleteHead();
@@ -120,8 +120,8 @@ public class CSLLTest {
     @Test
     public void testDeleteTail() {
         CSLL<Integer> csll = new CSLL<>();
-        Node<Integer> node1 = new Node<>(1);
-        Node<Integer> node2 = new Node<>(2);
+        SNode<Integer> node1 = new SNode<>(1);
+        SNode<Integer> node2 = new SNode<>(2);
         csll.insertHead(node1);
         csll.insertTail(node2);
         csll.deleteTail();
@@ -134,8 +134,8 @@ public class CSLLTest {
     @Test
     public void testDelete() {
         CSLL<Integer> csll = new CSLL<>();
-        Node<Integer> node1 = new Node<>(1);
-        Node<Integer> node2 = new Node<>(2);
+        SNode<Integer> node1 = new SNode<>(1);
+        SNode<Integer> node2 = new SNode<>(2);
         csll.insertHead(node1);
         csll.insertTail(node2);
         csll.delete(node1);
@@ -148,9 +148,9 @@ public class CSLLTest {
     @Test
     public void testSort() {
         CSLL<Integer> csll = new CSLL<>();
-        Node<Integer> node1 = new Node<>(1);
-        Node<Integer> node2 = new Node<>(2);
-        Node<Integer> node3 = new Node<>(3);
+        SNode<Integer> node1 = new SNode<>(1);
+        SNode<Integer> node2 = new SNode<>(2);
+        SNode<Integer> node3 = new SNode<>(3);
         csll.insertHead(node3);
         csll.insertHead(node1);
         csll.insertHead(node2);
@@ -165,8 +165,8 @@ public class CSLLTest {
     @Test
     public void testClear() {
         CSLL<Integer> csll = new CSLL<>();
-        Node<Integer> node1 = new Node<>(1);
-        Node<Integer> node2 = new Node<>(2);
+        SNode<Integer> node1 = new SNode<>(1);
+        SNode<Integer> node2 = new SNode<>(2);
         csll.insertHead(node1);
         csll.insertTail(node2);
         csll.clear();
@@ -176,8 +176,8 @@ public class CSLLTest {
     @Test
     public void isSortedFalseTest(){
         CSLL<Integer> csll = new CSLL<>();
-        Node<Integer> node1 = new Node<>(10);
-        Node<Integer> node2 = new Node<>(20);
+        SNode<Integer> node1 = new SNode<>(10);
+        SNode<Integer> node2 = new SNode<>(20);
         csll.insertHead(node1);
         csll.insertHead(node2);
         assertFalse(csll.isSorted());

@@ -7,15 +7,15 @@ public class StackLL<T extends Comparable<T>> extends SLL<T>{
         super();
     }
 
-    public StackLL(Node<T> head){
+    public StackLL(SNode<T> head){
         super(head);
     }
 
     /**
-     * push(Node<T> node);
+     * push(SNode<T> node);
      * @param node - node to be pushed to stack
      */
-    public void push(Node<T> node){
+    public void push(SNode<T> node){
         super.insertHead(node);
     }
 
@@ -23,8 +23,8 @@ public class StackLL<T extends Comparable<T>> extends SLL<T>{
      * pop();
      * @return node at the head of the stack and deletes it from stack
      */
-    public Node<T> pop(){
-        Node<T> node = this.head;
+    public SNode<T> pop(){
+        SNode<T> node = this.head;
         super.deleteHead();
         return node;
     }
@@ -33,7 +33,7 @@ public class StackLL<T extends Comparable<T>> extends SLL<T>{
      * peek();
      * @return head of stack without popping
      */
-    public Node<T> peek(){
+    public SNode<T> peek(){
         return this.head;
     }
 
@@ -45,15 +45,15 @@ public class StackLL<T extends Comparable<T>> extends SLL<T>{
     }
 
     //Overriding methods not useful to a stack
-    public void insertTail(Node<T> node){}
+    public void insertTail(SNode<T> node){}
 
-    public void insert(Node<T> node, int position){}
+    public void insert(SNode<T> node, int position){}
 
-    public void sortedInsert(Node<T> node){}
+    public void sortedInsert(SNode<T> node){}
 
     public void deleteTail(){}
 
-    public void delete(Node<T> node){}
+    public void delete(SNode<T> node){}
 
     public void sort(){}
 

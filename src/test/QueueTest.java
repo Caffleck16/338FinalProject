@@ -8,9 +8,9 @@ public class QueueTest {
     @Test
     public void testEnqueueAndDequeue() {
         QueueLL<Integer> queue = new QueueLL<>();
-        queue.enqueue(new Node<Integer>(1));
-        queue.enqueue(new Node<Integer>(2));
-        queue.enqueue(new Node<Integer>(3));
+        queue.enqueue(new SNode<Integer>(1));
+        queue.enqueue(new SNode<Integer>(2));
+        queue.enqueue(new SNode<Integer>(3));
         assertEquals(1, queue.dequeue().getData().intValue());
         assertEquals(2, queue.dequeue().getData().intValue());
         assertEquals(3, queue.dequeue().getData().intValue());
@@ -21,7 +21,7 @@ public class QueueTest {
     public void testempty() {
         QueueLL<String> queue = new QueueLL<>();
         assertTrue(queue.empty());
-        queue.enqueue(new Node<String>("foo"));
+        queue.enqueue(new SNode<String>("foo"));
         assertFalse(queue.empty());
         queue.dequeue();
         assertTrue(queue.empty());
@@ -30,8 +30,8 @@ public class QueueTest {
     @Test
     public void testPeek() {
         QueueLL<Double> queue = new QueueLL<>();
-        queue.enqueue(new Node<Double>(1.0));
-        queue.enqueue(new Node<Double>(2.0));
+        queue.enqueue(new SNode<Double>(1.0));
+        queue.enqueue(new SNode<Double>(2.0));
         assertEquals(1.0, queue.peek().getData(), 0.001);
         assertEquals(1.0, queue.peek().getData(), 0.001);
         queue.dequeue();
@@ -42,8 +42,8 @@ public class QueueTest {
     @Test
     public void irrelevantMethodsAreEmptyTest(){
         QueueLL<Integer> queue = new QueueLL<>();
-        Node<Integer> node1 = new Node<>(2);
-        Node<Integer> node2 = new Node<>(1);
+        SNode<Integer> node1 = new SNode<>(2);
+        SNode<Integer> node2 = new SNode<>(1);
         queue.enqueue(node1);
         
         queue.deleteTail();

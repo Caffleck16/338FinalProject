@@ -8,15 +8,15 @@ public class QueueLL<T extends Comparable<T>> extends SLL<T>{
         super();
     }
 
-    public QueueLL(Node<T> head){
+    public QueueLL(SNode<T> head){
         super(head);
     }
 
     /**
-     * enqueue(Node<T> node);
+     * enqueue(SNode<T> node);
      * @param node - node to be queued
      */
-    public void enqueue(Node<T> node){
+    public void enqueue(SNode<T> node){
         super.insertTail(node);
     }
 
@@ -24,8 +24,8 @@ public class QueueLL<T extends Comparable<T>> extends SLL<T>{
      * dequeue();
      * @return previous head
      */
-    public Node<T> dequeue(){
-        Node<T> node = head;
+    public SNode<T> dequeue(){
+        SNode<T> node = head;
         super.deleteHead();
         return node;
     }
@@ -34,7 +34,7 @@ public class QueueLL<T extends Comparable<T>> extends SLL<T>{
      * peek();
      * @return head without dequeueing
      */
-    public Node<T> peek(){
+    public SNode<T> peek(){
         return this.head;
     }
 
@@ -48,15 +48,15 @@ public class QueueLL<T extends Comparable<T>> extends SLL<T>{
 
     //Overiding methods not useful to queue
 
-    public void insertHead(Node<T> node){}
+    public void insertHead(SNode<T> node){}
 
-    public void insert(Node<T> node, int position){}
+    public void insert(SNode<T> node, int position){}
 
-    public void sortedInsert(Node<T> node){}
+    public void sortedInsert(SNode<T> node){}
 
     public void deleteTail(){}
 
-    public void delete(Node<T> node){}
+    public void delete(SNode<T> node){}
 
     public void sort(){}
 

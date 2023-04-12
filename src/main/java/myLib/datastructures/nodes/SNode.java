@@ -6,7 +6,7 @@ package main.java.myLib.datastructures.nodes;
  * 
  * @param <T> the type of data stored in the node
  */
-public class Node<T> {
+public class SNode<T> {
 
     /**
      * 
@@ -17,7 +17,7 @@ public class Node<T> {
      * 
      * The reference to the next node in the list.
      */
-    private Node<T> next;
+    private SNode<T> next;
 
     /**
      * 
@@ -25,7 +25,7 @@ public class Node<T> {
      * 
      * @param data the data to be stored in the node
      */
-    public Node(T data) {
+    public SNode(T data) {
         this.data = data;
         this.next = null;
     }
@@ -56,7 +56,7 @@ public class Node<T> {
      * 
      * @return the reference to the next node in the list
      */
-    public Node<T> getNext() {
+    public SNode<T> getNext() {
         return next;
     }
 
@@ -66,7 +66,7 @@ public class Node<T> {
      * 
      * @param next the node to be set as the next node in the list
      */
-    public void setNext(Node<T> next) {
+    public void setNext(SNode<T> next) {
         this.next = next;
     }
 }

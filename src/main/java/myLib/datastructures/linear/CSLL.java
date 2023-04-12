@@ -10,25 +10,25 @@ public class CSLL<T extends Comparable<T>> extends SLL<T> {
         super();
     }
 
-    public CSLL(Node<T> node){
+    public CSLL(SNode<T> node){
         super(node);
         tail.setNext(head);
     }
 
     /**
-     * insertHead(Node<T> node);
+     * insertHead(SNode<T> node);
      * @param node - node to be inserted at the head.
      */
-    public void insertHead(Node<T> node) {
+    public void insertHead(SNode<T> node) {
         super.insertHead(node);
         tail.setNext(head);
     }
 
     /**
-     * insertTail(Node<T> node);
+     * insertTail(SNode<T> node);
      * @param node - node to be inserted at the tail
      */
-    public void insertTail(Node<T> node) {
+    public void insertTail(SNode<T> node) {
         super.insertTail(node);
         tail.setNext(head);
     }
